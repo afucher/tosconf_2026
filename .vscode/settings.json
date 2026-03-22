@@ -1,0 +1,9 @@
+{
+  "calva.replConnectSequences": [
+    {
+      "name": "proxy_fly",
+      "projectType": "Leiningen",
+      "fallbackPort": 18891
+    }
+  ]
+}
