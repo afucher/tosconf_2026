@@ -1,0 +1,32 @@
+app = "tosconf-2026"
+primary_region = "gru"
+
+[build]
+
+[env]
+  HOST = "0.0.0.0"
+  PORT = "8890"
+  NREPL_PORT = "8891"
+
+# HTTP server
+[[services]]
+  protocol      = "tcp"
+  internal_port = 8890
+
+  [[services.ports]]
+    port     = 80
+    handlers = ["http"]
+
+  [[services.ports]]
+    port     = 443
+    handlers = ["tls", "http"]
+
+  [[services.http_checks]]
+    interval     = 10000
+    timeout      = 5000
+    grace_period = "30s"
+    method       = "GET"
+    path         = "/greet"
+
+# nREPL is NOT exposed publicly — access via WireGuard only
+# (fly wireguard create → connect to tosconf-2026.internal:8891)

@@ -1,0 +1,27 @@
+# Version control
+.git/
+.gitignore
+
+# Build artifacts (rebuilt inside the container)
+target/
+
+# REPL / classpath cache
+.lein-repl-history
+.nrepl-port
+.cpcache/
+
+# Editor / IDE
+.calva/
+.idea/
+.vscode/
+
+# Linter cache
+.clj-kondo/
+
+# Docs / deploy config (not needed in image)
+README.md
+fly.toml
+
+# OS
+.DS_Store
+Thumbs.db
