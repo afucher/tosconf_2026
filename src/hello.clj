@@ -2,20 +2,30 @@
   (:require
    [io.pedestal.connector :as conn]
    [io.pedestal.http.http-kit :as hk]
-   [nrepl.server :as nrepl.server])
+   [nrepl.server :as nrepl.server]
+   [cider.nrepl :refer [cider-middleware]])
   (:gen-class))
 
 (defn greet [_request]
-  "<h1>Hello, TosConf!</h1>\n")
+  "<h1>Hello, World!</h1>\n")
 
 (defn greet-handler [request]
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body   (greet request)})
 
+(defn home [_request]
+  "<h1>Welcome to the Home Page!</h1>\n")
+
+(defn home-handler [_req]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body   (home _req)})
+
 
 (def routes
-  #{["/greet" :get #'greet-handler :route-name :greet]})
+  #{["/" :get #'home-handler :route-name :home]
+    ["/greet" :get #'greet-handler :route-name :greet]})
 
 (defn http-port []
   (Integer/parseInt (or (System/getenv "PORT") "8890")))
@@ -38,7 +48,8 @@
   (reset! server (conn/start! (create-connector))))
 
 (defn start []
-  (nrepl.server/start-server :port (nrepl-port) :bind (host))
+  (nrepl.server/start-server :port (nrepl-port) :bind (host)
+                             :handler (apply nrepl.server/default-handler cider-middleware))
   (start-server))
 
 (defn -main [& _args]

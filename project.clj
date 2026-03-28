@@ -3,7 +3,8 @@
   :dependencies [[org.clojure/clojure "1.12.0"]
                  [io.pedestal/pedestal.http-kit "0.8.2-beta-2"]
                  [org.slf4j/slf4j-simple "2.0.17"]
-                 [nrepl/nrepl "1.5.1"]]
+                 [nrepl/nrepl "1.5.1"]
+                 [cider/cider-nrepl "0.55.7"]]
   :main hello
   :aot [hello]
   :uberjar-name "app.jar"
